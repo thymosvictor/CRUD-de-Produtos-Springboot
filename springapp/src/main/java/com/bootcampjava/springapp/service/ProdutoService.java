@@ -1,61 +1,51 @@
 package com.bootcampjava.springapp.service;
 
-import com.bootcampjava.springapp.model.Produto;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.bootcampjava.springapp.model.Produto;
+import com.bootcampjava.springapp.repository.ProdutoRepository;
 
 @Service
 public class ProdutoService {
 
-    // LISTA PARA ARMAZENAR OS DADOS//
-    private List<Produto> produtos = new ArrayList<>();
-    private Long proximoId = 1L;
+    private final ProdutoRepository repository;
 
-
-    //DEFINIÇÃO DOS MÉTODOS CRUD//
-
-    // CREATE - cadastrar produto
-    public Produto criarProduto(Produto produto) {
-        produtos.add(produto);
-        return produto;
+    public ProdutoService(ProdutoRepository repository) {
+        this.repository = repository;
     }
 
-    // READ - listar todos os produtos
-    public List<Produto> listarProdutos() {
-        return produtos;
+    //SAVE//
+    public Produto salvar(Produto produto){
+        return repository.save(produto);
     }
 
-    // READ - buscar produto por id
-    public Produto buscarPorId(Long id) {
-        return produtos.stream()
-                .filter(p -> p.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    //LISTAR//
+    public List<Produto> findAll() {
+        return repository.findAll();
     }
 
-    // UPDATE - atualizar produto
-    public Produto atualizarProduto(Long id, Produto produtoAtualizado) {
-        Produto produtoExistente = buscarPorId(id);
-
-        if (produtoExistente != null) {
-            produtoExistente.setNome(produtoAtualizado.getNome());
-            produtoExistente.setPreco(produtoAtualizado.getPreco());
-            produtoExistente.setEstoque(produtoAtualizado.isEstoque());
-            return produtoExistente;
-        }
-
-        return null;
+    //LISTAR POR ID//
+    public Produto findById(Long id) {
+        return repository.findById(id).get();
     }
 
-    // DELETE - remover produto
-    public boolean removerProduto(Long id) {
-        Produto produto = buscarPorId(id);
-        if (produto != null) {
-            produtos.remove(produto);
-            return true;
-        }
-        return false;
+    //ATUALIZAR//
+    public Produto update(Long id, Produto produtoAtualizado) {
+        Produto produtoExistente = repository.findById(id).orElseThrow();
+
+        produtoExistente.setNome(produtoAtualizado.getNome());
+        produtoExistente.setDescricao(produtoAtualizado.getDescricao());
+        produtoExistente.setPreco(produtoAtualizado.getPreco());
+        produtoExistente.setEstoque(produtoAtualizado.isEstoque());
+
+        return repository.save(produtoExistente);
     }
+
+    //DELETAR//
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
 }
