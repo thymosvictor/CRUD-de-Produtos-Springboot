@@ -4,6 +4,10 @@ import java.util.List;
 import com.bootcampjava.springapp.dto.ProdutoRequestDto;
 import com.bootcampjava.springapp.dto.ProdutoResponseDto;
 
+//SOLID aplicado:
+// I - Interface Segregation: contrato claro
+// D - Dependency Inversion: controller depende da interface
+
 public interface ProdutoService {
 
     ProdutoResponseDto salvar(ProdutoRequestDto dto);
