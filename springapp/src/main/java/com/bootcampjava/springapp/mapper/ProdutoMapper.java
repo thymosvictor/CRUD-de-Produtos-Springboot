@@ -4,12 +4,11 @@ import org.springframework.stereotype.Component;
 import com.bootcampjava.springapp.dto.ProdutoRequestDto;
 import com.bootcampjava.springapp.dto.ProdutoResponseDto;
 import com.bootcampjava.springapp.model.Produto;
-import com.bootcampjava.springapp.model.StatusProduto;
 
 @Component
 public class ProdutoMapper {
 
-    // Converte DTO de entrada para Entity
+    // DTO -> Entity
     public Produto toEntity(ProdutoRequestDto dto) {
         Produto produto = new Produto();
         produto.setNome(dto.getNome());
@@ -18,7 +17,7 @@ public class ProdutoMapper {
         return produto;
     }
 
-    // Converte Entity para DTO de resposta
+    // Entity -> DTO
     public ProdutoResponseDto toResponseDto(Produto produto) {
         return new ProdutoResponseDto(
                 produto.getId(),
@@ -35,4 +34,3 @@ public class ProdutoMapper {
         produto.setPreco(dto.getPreco());
     }
 }
-

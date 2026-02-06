@@ -1,8 +1,9 @@
 package com.bootcampjava.springapp.dto;
 
-// Define o que o usuário recebe ao consultar produtos
 import com.bootcampjava.springapp.model.StatusProduto;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Getter
 @NoArgsConstructor
@@ -12,7 +13,6 @@ public class ProdutoResponseDto {
     private Long id;
     private String nome;
     private String descricao;
-    private Double preco;
+    private BigDecimal preco;
     private StatusProduto status;
 }
-

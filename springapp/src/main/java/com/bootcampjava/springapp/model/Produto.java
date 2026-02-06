@@ -1,9 +1,10 @@
 package com.bootcampjava.springapp.model;
 
-import jakarta.persistence.*; // Anotações JPA para mapeamento ORM
+import jakarta.persistence.*;
 import lombok.*;
 
-// Marca a classe como entidade do banco de dados
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -12,20 +13,19 @@ import lombok.*;
 public class Produto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto incremento no banco
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100) //Obrigatório
+    @Column(nullable = false, length = 100)
     private String nome;
 
     private String descricao;
 
-    @Column(nullable = false)
-    private Double preco;
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal preco;
 
-    @Enumerated(EnumType.STRING) // Salva enum como string no banco
-    private StatusProduto status; // Status do produto (ex: DISPONÍVEL, INDISPONÍVEL)
+    @Enumerated(EnumType.STRING)
+    private StatusProduto status;
 }
-
 
 //1769196977451//
