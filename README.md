@@ -1,164 +1,127 @@
 
-```
-# 🌟 API de Produtos com Spring Boot
+```markdown
+# Sistema CRUD de Produtos
 
-Este projeto é uma **API REST de Produtos** desenvolvida em **Java com Spring Boot**, permitindo realizar operações CRUD (Create, Read, Update, Delete) sobre produtos.  
+## Descrição
 
-O objetivo do projeto é **praticar desenvolvimento de APIs REST, manipulação de dados em memória e Spring Boot**.
+Este é um **sistema CRUD de produtos** desenvolvido com **Spring Boot**, permitindo **criar, listar, atualizar e deletar produtos**.  
+O sistema possui **front-end estático** em HTML, CSS e JavaScript, integrado ao backend Spring Boot, e utiliza **PostgreSQL** como banco de dados.  
 
----
+O projeto foi **deployado na Azure**, permitindo que seja acessado via URL pública, mas também pode ser executado localmente para desenvolvimento.
 
-## 🎯 Objetivos
-
-- Criar uma API REST funcional para cadastro e gerenciamento de produtos.
-- Implementar operações **CRUD** (Create, Read, Update, Delete).
-- Trabalhar com Spring Boot, Controllers, Services e Request/Response JSON.
-- Permitir testes locais simples usando ferramentas como **Postman** ou **Insomnia**.
-- Garantir endpoints claros, incluindo um endpoint de teste `/produtos/hello`.
+> ⚠️ **Importante:** Todo o código funcional está na branch `mapper`. Para rodar corretamente, você deve fazer checkout para essa branch.
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
-- **Java 17+**
-- **Spring Boot** (Web)
-- **Maven** (gerenciamento de dependências)
-- **Postman** (testes de API)
-- IDE sugerida: **IntelliJ IDEA** ou **Eclipse**
-- Sistema operacional: qualquer SO que suporte Java
+- **Java 21**  
+- **Spring Boot**  
+- **Maven**  
+- **PostgreSQL**  
+- **HTML, CSS e JavaScript** (front-end estático)  
+- **IntelliJ IDEA** (IDE)  
+- **Azure** (deploy do backend)  
 
 ---
 
-## 📦 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 
-src/
-└── main/
-├── java/
-│    └── com.bootcampjava.springapp/
-│         ├── controller/ProdutoController.java   # Controlador REST
-│         ├── model/Produto.java                # Classe modelo de produto
-│         └── service/ProdutoService.java      # Lógica CRUD em memória
-└── resources/
-└── application.properties                # Configurações do Spring Boot
+springapp/
+├─ src/main/java/com/bootcampjava/springapp
+│  ├─ controller/        # Controladores REST
+│  ├─ model/             # Modelos/Entidades
+│  ├─ repository/        # Repositórios JPA
+│  └─ service/           # Serviços de negócio
+├─ src/main/resources/
+│  ├─ application.properties  # Configurações do Spring
+│  └─ static/                  # Front-end (index.html, style.css, script.js)
+└─ pom.xml                      # Configuração Maven
 
 ````
 
 ---
 
-## 🚀 Como Executar na Máquina
+## Funcionalidades
+
+1. **Criar produtos** com nome, descrição e preço.  
+2. **Listar produtos** em uma tabela dinâmica.  
+3. **Editar produtos** existentes.  
+4. **Deletar produtos**.  
+5. **Integração com front-end** estático servido pelo Spring Boot ou via Azure.  
+
+---
+
+## Como Rodar Localmente
+
+### Pré-requisitos
+
+- Java 21 instalado  
+- Maven instalado  
+- PostgreSQL rodando localmente  
+- IntelliJ IDEA (opcional, mas recomendado)
+
+### Passo a passo
 
 1. Clone o repositório:
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/seu-usuario/CRUD-de-Produtos-Springboot.git
+cd CRUD-de-Produtos-Springboot/springapp
 ````
 
-2. Acesse a pasta do projeto:
+2. Faça checkout para a **branch `mapper`**, onde o código está funcionando:
 
 ```bash
-cd springapp
+git checkout mapper
 ```
 
-3. Rode a aplicação com Maven:
+3. Compile e rode o projeto:
 
 ```bash
+mvn clean install
 mvn spring-boot:run
 ```
 
-> A API estará disponível em: `http://localhost:8080`
-
----
-
-## 📌 Endpoints Disponíveis
-
-### 1️⃣ Endpoint de teste
-
-* **GET** `/produtos/hello`
-* Retorno: `"API de Produtos rodando Springboot"`
-
----
-
-### 2️⃣ Criar Produto
-
-* **POST** `/produtos`
-* **Headers:** `Content-Type: application/json`
-* **Body JSON:**
-
-```json
-{
-  "nome": "Notebook",
-  "preco": 3500.00,
-  "estoque": true
-}
-```
-
-* Retorno: Produto criado com ID incremental, status `201 Created`.
-
----
-
-### 3️⃣ Listar Todos os Produtos
-
-* **GET** `/produtos`
-* Retorno: Lista de produtos em JSON, status `200 OK`.
-
----
-
-### 4️⃣ Buscar Produto por ID
-
-* **GET** `/produtos/{id}`
-* Substitua `{id}` pelo ID retornado no POST
-* Retorno: Produto ou `404 Not Found`.
-
----
-
-### 5️⃣ Atualizar Produto
-
-* **PUT** `/produtos/{id}`
-* **Headers:** `Content-Type: application/json`
-* **Body JSON:**
-
-```json
-{
-  "nome": "Notebook Gamer",
-  "preco": 4200.00,
-  "estoque": false
-}
-```
-
-* Retorno: Produto atualizado ou `404 Not Found`.
-
----
-
-### 6️⃣ Deletar Produto
-
-* **DELETE** `/produtos/{id}`
-* Retorno: Status `204 No Content` se removido ou `404 Not Found` se não existir.
-
----
-
-## 💻 Testando no Postman
-
-1. Teste `/produtos/hello` para verificar se API está rodando.
-2. Crie produtos com **POST** `/produtos`.
-3. Liste produtos com **GET** `/produtos`.
-4. Busque produtos individuais com **GET** `/produtos/{id}`.
-5. Atualize produtos com **PUT** `/produtos/{id}`.
-6. Delete produtos com **DELETE** `/produtos/{id}`.
-
-> ⚠️ Sempre copie o `id` retornado pelo POST para testar os endpoints GET, PUT e DELETE.
-
----
-
-## 📝 Observações
-
-* O **banco de dados é simulado em memória** (lista no `ProdutoService`), então os dados se perdem ao reiniciar a aplicação.
-* IDs são **incrementais** (1,2,3...) para facilitar testes.
-* Use `Content-Type: application/json` para requisições POST e PUT.
-
----
-
-Feito com ❤️ por Thymos Victor
+4. Acesse o sistema via navegador:
 
 ```
+http://localhost:8081/index.html
+```
+
+---
+
+## Como Acessar no Azure
+
+O projeto está deployado na Azure com a seguinte URL:
+
+```
+https://bootcamp-produtos-thymos.azurewebsites.net/produtos
+```
+
+* O backend e o front-end estão integrados.
+---
+
+## Observações
+
+* Todos os arquivos front-end estão dentro de `src/main/resources/static/`.
+* Para atualizar o front-end, basta substituir os arquivos e redeployar o backend no Azure.
+* **É obrigatório estar na branch `mapper` para que o projeto funcione corretamente**, tanto localmente quanto em deploy.
+
+---
+
+## Autor
+
+**Thymos Victor Leal**
+
+* GitHub: [thymosvictor](https://github.com/thymosvictor)
+* Projeto feito como estudo e deploy em Azure.
+
+---
+
+
+```
+
+
