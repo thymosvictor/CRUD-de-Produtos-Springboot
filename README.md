@@ -11,8 +11,6 @@ O projeto foi **deployado na Azure**, permitindo que seja acessado via URL públ
 
 > ⚠️ **Importante:** Todo o código funcional está na branch `mapper`. Para rodar corretamente, você deve fazer checkout para essa branch.
 
----
-
 ## Tecnologias Utilizadas
 
 - **Java 21**  
@@ -27,7 +25,7 @@ O projeto foi **deployado na Azure**, permitindo que seja acessado via URL públ
 
 ## Estrutura do Projeto
 
-```
+
 
 springapp/
 ├─ src/main/java/com/bootcampjava/springapp
@@ -40,9 +38,6 @@ springapp/
 │  └─ static/                  # Front-end (index.html, style.css, script.js)
 └─ pom.xml                      # Configuração Maven
 
-````
-
----
 
 ## Funcionalidades
 
@@ -70,36 +65,31 @@ springapp/
 ```bash
 git clone https://github.com/seu-usuario/CRUD-de-Produtos-Springboot.git
 cd CRUD-de-Produtos-Springboot/springapp
-````
+
 
 2. Faça checkout para a **branch `mapper`**, onde o código está funcionando:
 
 ```bash
 git checkout mapper
-```
+
 
 3. Compile e rode o projeto:
 
 ```bash
 mvn clean install
 mvn spring-boot:run
-```
 
 4. Acesse o sistema via navegador:
 
-```
-http://localhost:8081/index.html
-```
 
----
+http://localhost:8081/index.html
 
 ## Como Acessar no Azure
 
 O projeto está deployado na Azure com a seguinte URL:
 
-```
+
 https://bootcamp-produtos-thymos.azurewebsites.net/produtos
-```
 
 * O backend e o front-end estão integrados.
 ---
