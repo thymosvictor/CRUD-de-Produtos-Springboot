@@ -1,4 +1,6 @@
 package com.bootcampjava.springapp.model;
+ import jakarta.persistence.*;
+ import lombok.*;
 
 import jakarta.persistence.*; // Anotações JPA para mapeamento ORM
 import lombok.*;
