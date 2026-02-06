@@ -2,11 +2,16 @@ package com.bootcampjava.springapp.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.bootcampjava.springapp.model.Produto;
-import com.bootcampjava.springapp.service.ProdutoService;
+import jakarta.validation.Valid;
 
+import com.bootcampjava.springapp.dto.ProdutoRequestDto;
+import com.bootcampjava.springapp.dto.ProdutoResponseDto;
+import com.bootcampjava.springapp.service.ProdutoService;
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -17,31 +22,36 @@ public class ProdutoController {
         this.service = service;
     }
 
-    // CREATE
+    //Usando @Valid para validar automaticamente os campos obrigatórios do Request DTO
     @PostMapping
-    public Produto salvar(@RequestBody Produto produto) {
-        return service.salvar(produto);
-    }
+    public ResponseEntity<ProdutoResponseDto> salvar(
+            @Valid @RequestBody ProdutoRequestDto dto
+    ) {
+        ProdutoResponseDto response = service.salvar(dto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
 
-    // READ - listar todos
     @GetMapping
-    public List<Produto> listar() {
-        return service.findAll();
+    public ResponseEntity<List<ProdutoResponseDto>> listar() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public Produto buscar(@PathVariable Long id) {
-        return service.findById(id);
+    public ResponseEntity<ProdutoResponseDto> buscarPorId(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id));
     }
+
     @PutMapping("/{id}")
-    public Produto atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-        return service.update(id, produto);
+    public ResponseEntity<ProdutoResponseDto> atualizar(
+            @PathVariable Long id,
+            @Valid @RequestBody ProdutoRequestDto dto
+    ) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.noContent().build();//
     }
-
-
 }

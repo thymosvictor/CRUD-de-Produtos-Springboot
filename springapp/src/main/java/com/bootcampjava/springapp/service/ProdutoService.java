@@ -1,51 +1,18 @@
 package com.bootcampjava.springapp.service;
-
+// para definir o que o serviço faz: CRUD.
 import java.util.List;
+import com.bootcampjava.springapp.dto.ProdutoRequestDto;
+import com.bootcampjava.springapp.dto.ProdutoResponseDto;
 
-import org.springframework.stereotype.Service;
+//SOLID aplicado:
+// I - Interface Segregation: contrato claro
+// D - Dependency Inversion: controller depende da interface
 
-import com.bootcampjava.springapp.model.Produto;
-import com.bootcampjava.springapp.repository.ProdutoRepository;
+public interface ProdutoService {
 
-@Service
-public class ProdutoService {
-
-    private final ProdutoRepository repository;
-
-    public ProdutoService(ProdutoRepository repository) {
-        this.repository = repository;
-    }
-
-    //SAVE//
-    public Produto salvar(Produto produto){
-        return repository.save(produto);
-    }
-
-    //LISTAR//
-    public List<Produto> findAll() {
-        return repository.findAll();
-    }
-
-    //LISTAR POR ID//
-    public Produto findById(Long id) {
-        return repository.findById(id).get();
-    }
-
-    //ATUALIZAR//
-    public Produto update(Long id, Produto produtoAtualizado) {
-        Produto produtoExistente = repository.findById(id).orElseThrow();
-
-        produtoExistente.setNome(produtoAtualizado.getNome());
-        produtoExistente.setDescricao(produtoAtualizado.getDescricao());
-        produtoExistente.setPreco(produtoAtualizado.getPreco());
-        produtoExistente.setEstoque(produtoAtualizado.isEstoque());
-
-        return repository.save(produtoExistente);
-    }
-
-    //DELETAR//
-    public void delete(Long id) {
-        repository.deleteById(id);
-    }
-
+    ProdutoResponseDto salvar(ProdutoRequestDto dto);
+    List<ProdutoResponseDto> findAll();
+    ProdutoResponseDto findById(Long id);
+    ProdutoResponseDto update(Long id, ProdutoRequestDto dto);
+    void delete(Long id);
 }
