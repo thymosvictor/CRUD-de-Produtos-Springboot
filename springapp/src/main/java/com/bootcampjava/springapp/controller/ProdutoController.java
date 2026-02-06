@@ -11,7 +11,6 @@ import jakarta.validation.Valid;
 import com.bootcampjava.springapp.dto.ProdutoRequestDto;
 import com.bootcampjava.springapp.dto.ProdutoResponseDto;
 import com.bootcampjava.springapp.service.ProdutoService;
-@CrossOrigin(origins = "https://frontendproduto.vercel.app")
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
